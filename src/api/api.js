@@ -19,10 +19,8 @@ export const api = {
   login: async (email, password) => {
     try {
       const { data, status } = await instance.post(ENDPOINTS.LOGIN, {
-        data: {
-          email,
-          password,
-        },
+        email,
+        password,
       });
 
       return { data, status };
