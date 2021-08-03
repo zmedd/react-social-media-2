@@ -8,6 +8,7 @@ export const colors = {
     primary: "#D90429",
     secondary: "#EF233C",
   },
+  black: "#2b2922",
 };
 
 export const BUTTON_TYPES = {
