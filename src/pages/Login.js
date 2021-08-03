@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSession } from "../hooks";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { Input, Button, Form, Typography } from "../components";
 import { BUTTON_TYPES, emailRegex } from "../const/const";
 import { api } from "../api/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Login = () => {
   const [formData, setFormData] = useState({
@@ -37,8 +39,6 @@ export const Login = () => {
   };
 
   const handleSubmit = async () => {
-    console.log(formData);
-
     if (!emailRegex.test(formData.email)) {
       handleFormError("email", "Invalid email address.");
       return;
@@ -58,12 +58,13 @@ export const Login = () => {
         history.push("/");
       }, 100);
     } else {
-      console.warn("ERROR: ", data);
+      toast.error(data);
     }
   };
 
   return (
     <Form>
+      <ToastContainer />
       <Typography.H1>Login</Typography.H1>
       <Input
         placeholder="Email address"
@@ -81,6 +82,9 @@ export const Login = () => {
         value={formData.password}
         name="password"
       />
+      <div>
+        <Link to="/register">Or register a new account</Link>
+      </div>
       <Button
         buttonType={BUTTON_TYPES.PRIMARY}
         text="Log in"

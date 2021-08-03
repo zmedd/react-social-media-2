@@ -10,9 +10,15 @@ export const Newsfeed = () => {
     !loading && !loggedIn && history.push("/login");
   }, [loading, loggedIn, history]);
 
+  const handleLogOut = () => {
+    localStorage.clear();
+    history.push("/login");
+  };
+
   return (
     <div>
       <h1>Newsfeed</h1>
+      <button onClick={handleLogOut}>Log out</button>
       {!loading && loggedIn && JSON.stringify(myAccount)}
     </div>
   );

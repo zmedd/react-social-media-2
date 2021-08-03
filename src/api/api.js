@@ -25,23 +25,21 @@ export const api = {
 
       return { data, status };
     } catch (err) {
-      alert(err.message);
+      return { data: err.message, status: 500 };
     }
   },
   register: async (first_name, last_name, email, password) => {
     try {
       const { data, status } = await instance.post(ENDPOINTS.REGISTER, {
-        data: {
-          first_name,
-          last_name,
-          email,
-          password,
-        },
+        first_name,
+        last_name,
+        email,
+        password,
       });
 
       return { data, status };
     } catch (err) {
-      alert(err.message);
+      return { data: err.message, status: 500 };
     }
   },
   createPost: async ({ author, content, likes, comments, shares }) => {
@@ -55,7 +53,7 @@ export const api = {
 
       return { data, status };
     } catch (err) {
-      alert(err.message);
+      return { data: err.message, status: 500 };
     }
   },
   getPosts: async () => {
@@ -68,7 +66,7 @@ export const api = {
 
       return { data, status };
     } catch (err) {
-      alert(err.message);
+      return { data: err.message, status: 500 };
     }
   },
   getUsers: async () => {
@@ -81,7 +79,7 @@ export const api = {
 
       return { data, status };
     } catch (err) {
-      alert(err.message);
+      return { data: err.message, status: 500 };
     }
   },
 };
