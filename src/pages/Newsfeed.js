@@ -4,12 +4,12 @@ import { useHistory } from "react-router-dom";
 import { api } from "../api/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Header } from "../components";
+import { Header, Post, Layout } from "../components";
 
 export const Newsfeed = () => {
   const [posts, setPosts] = useState([]);
 
-  const { loading, loggedIn, myAccount } = useSession();
+  const { loading, loggedIn } = useSession();
   const history = useHistory();
 
   useEffect(() => {
@@ -32,11 +32,12 @@ export const Newsfeed = () => {
 
   return (
     <div>
-      <Header />
+      <Header handleLogOut={handleLogOut} />
       <ToastContainer />
-      <h1>Newsfeed</h1>
-      <button onClick={handleLogOut}>Log out</button>
-      {!loading && loggedIn && JSON.stringify(myAccount)}
+      <Layout>
+        {posts.length > 0 &&
+          posts.map((post, index) => <Post key={index} data={post} />)}
+      </Layout>
     </div>
   );
 };

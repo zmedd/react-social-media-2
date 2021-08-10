@@ -12,20 +12,22 @@ import { useSession } from "../../hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
-export const Header = () => {
+export const Header = ({ handleLogOut }) => {
   const [data, setData] = useState({
     avatar: "",
     fullName: "",
   });
-  const { myAccount, loading } = useSession();
+  const { myAccount, loading, loggedIn } = useSession();
 
   useEffect(() => {
-    !loading &&
+    if (!loading && loggedIn) {
+      const { avatar, first_name, last_name } = myAccount;
       setData({
-        avatar: myAccount.avatar,
-        fullName: `${myAccount.first_name} ${myAccount.last_name}`,
+        avatar: avatar,
+        fullName: `${first_name} ${last_name}`,
       });
-  }, [loading]);
+    }
+  }, [loading, myAccount, loggedIn]);
 
   return (
     <Container>
@@ -40,7 +42,11 @@ export const Header = () => {
             <ProfileImg src={data.avatar} />
             <Name>{data.fullName}</Name>
           </A>
-          <FontAwesomeIcon icon={faSignOutAlt} size="lg" />
+          <FontAwesomeIcon
+            icon={faSignOutAlt}
+            size="lg"
+            onClick={handleLogOut}
+          />
         </Account>
       </Wrapper>
     </Container>
